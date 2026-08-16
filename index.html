@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI DATA RUSH</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- ============================= -->
+    <!-- WELCOME SCREEN                -->
+    <!-- ============================= -->
+
+    <div id="welcome-screen" class="screen">
+
+        <div class="welcome-card">
+
+            <div class="game-logo">
+                ESCAPE FROM ME
+            </div>
+
+            <div class="tagline">
+                THE GAME THAT LEARNS YOU
+            </div>
+
+            <div class="input-label">
+                ENTER YOUR NAME
+            </div>
+
+            <input
+                id="player-name-input"
+                type="text"
+                maxlength="20"
+                autocomplete="off"
+                placeholder="Your name"
+            >
+
+            <div id="name-error" class="error-message"></div>
+
+            <button id="continue-btn" class="primary-btn">
+                CONTINUE
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ============================= -->
+    <!-- INSTRUCTIONS SCREEN           -->
+    <!-- ============================= -->
+
+    <div id="instructions-screen" class="screen hidden">
+
+        <div class="instructions-card">
+
+            <div class="screen-title">
+                HOW TO PLAY
+            </div>
+
+            <div class="instruction-grid">
+
+                <div class="instruction-item">
+                    <span class="instruction-icon">🎯</span>
+
+                    <div>
+                        <strong>OBJECTIVE</strong>
+                        <p>
+                            Collect data nodes and survive
+                            until the 60-second timer ends.
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="instruction-item">
+                    <span class="instruction-icon">⌨</span>
+
+                    <div>
+                        <strong>CONTROLS</strong>
+                        <p>
+                            Use W A S D or Arrow Keys to move.
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="instruction-item">
+                    <span class="instruction-icon">💎</span>
+
+                    <div>
+                        <strong>SCORING</strong>
+                        <p>
+                            Data node: +10 points<br>
+                            Data Node may Change into RED
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="instruction-item">
+                    <span class="instruction-icon">☠</span>
+
+                    <div>
+                        <strong>PENALTY</strong>
+                        <p>
+                            Touching a harmful RED hunter
+                            ends the run.
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="instruction-item">
+                    <span class="instruction-icon">⏱</span>
+
+                    <div>
+                        <strong>DURATION</strong>
+                        <p>
+                            You have exactly 60 seconds.
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="instruction-item">
+                    <span class="instruction-icon">🤖</span>
+
+                    <div>
+                        <strong>AI RULE</strong>
+                        <p>
+                            The AI observes your gameplay
+                            and adapts the challenge.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <button id="start-btn" class="primary-btn">
+                START GAME
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ============================= -->
+    <!-- GAME UI                       -->
+    <!-- ============================= -->
+
+    <div id="ui-layer" class="hidden">
+
+        <div id="score-panel" class="panel">
+
+            <div class="panel-title">
+                SCORE
+            </div>
+
+            <div id="score-value">
+                0
+            </div>
+
+        </div>
+
+
+        <div id="timer-panel" class="panel">
+
+            <div class="panel-title">
+                TIME
+            </div>
+
+            <div id="timer-value">
+                01:00
+            </div>
+
+        </div>
+
+
+        <div id="coach-panel" class="panel">
+
+            <div class="panel-title">
+                AI COACH
+            </div>
+
+            <div id="coach-text">
+                Collect blue nodes. Avoid red hunters.
+            </div>
+
+        </div>
+
+
+        <div id="center-message"></div>
+
+    </div>
+
+
+    <!-- ============================= -->
+    <!-- GAME CANVAS                   -->
+    <!-- ============================= -->
+
+    <canvas id="game"></canvas>
+
+
+    <!-- ============================= -->
+    <!-- RESULT SCREEN                 -->
+    <!-- ============================= -->
+
+    <div id="result-screen" class="screen hidden">
+
+        <div class="result-card">
+
+            <div class="result-message">
+                I FOUND YOU
+            </div>
+
+            <div id="result-player-name" class="result-name">
+                PLAYER
+            </div>
+
+            <div class="result-score-label">
+                SCORE
+            </div>
+
+            <div id="final-score" class="result-score">
+                0
+            </div>
+
+            <div class="result-score-label">
+                    HEIGHEST
+            </div>
+
+            <div id="best-score" class="result-score best-score">
+            0
+            </div>
+
+            <div id="completion-status" class="completion-status">
+                TIME COMPLETED
+            </div>
+
+            <div class="dare-message">
+                WILL YOU DARE AGAIN?
+            </div>
+
+            <button id="restart-btn" class="primary-btn">
+                PLAY AGAIN
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ============================= -->
+    <!-- JAVASCRIPT                    -->
+    <!-- ============================= -->
+
+    <script src="js/config.js"></script>
+    <script src="js/state.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/timer.js"></script>
+    <script src="js/ai.js"></script>
+    <script src="js/entities.js"></script>
+    <script src="js/particles.js"></script>
+    <script src="js/renderer.js"></script>
+    <script src="js/game.js"></script>
+
+</body>
+
+</html>
