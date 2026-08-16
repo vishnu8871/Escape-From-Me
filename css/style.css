@@ -1,0 +1,676 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    background: #030712;
+    overflow: hidden;
+
+    font-family:
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    color: #e5f0ff;
+}
+
+
+canvas {
+    display: block;
+
+    background:
+        radial-gradient(
+            circle at 30% 30%,
+            #0b1229 0%,
+            #030712 70%
+        );
+}
+
+
+/* =====================================
+   COMMON
+===================================== */
+
+.hidden {
+    display: none !important;
+}
+
+
+.screen {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 100;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(15, 23, 42, 0.92),
+            rgba(3, 7, 18, 0.98)
+        );
+}
+
+
+/* =====================================
+   WELCOME
+===================================== */
+
+.welcome-card,
+.instructions-card,
+.result-card {
+
+    width: min(560px, 94vw);
+
+    padding: 40px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(3, 7, 18, 0.88);
+
+    border:
+        1px solid
+        rgba(59, 130, 246, 0.55);
+
+    box-shadow:
+        0 0 60px
+        rgba(59, 130, 246, 0.20),
+
+        inset 0 0 30px
+        rgba(59, 130, 246, 0.04);
+
+    backdrop-filter:
+        blur(12px);
+
+    text-align: center;
+}
+
+
+.game-logo {
+
+    font-size: clamp(
+        32px,
+        6vw,
+        52px
+    );
+
+    font-weight: 900;
+
+    letter-spacing: 5px;
+
+    color: #60a5fa;
+
+    text-shadow:
+        0 0 25px
+        rgba(59, 130, 246, 0.8);
+}
+
+
+.tagline {
+
+    margin-top: 10px;
+
+    margin-bottom: 40px;
+
+    font-size: 13px;
+
+    letter-spacing: 3px;
+
+    color: #94a3b8;
+}
+
+
+.input-label {
+
+    text-align: left;
+
+    margin-bottom: 8px;
+
+    font-size: 12px;
+
+    letter-spacing: 1.5px;
+
+    color: #93c5fd;
+}
+
+
+#player-name-input {
+
+    width: 100%;
+
+    padding: 15px 16px;
+
+    border-radius: 10px;
+
+    border:
+        1px solid
+        rgba(96, 165, 250, 0.4);
+
+    outline: none;
+
+    background:
+        rgba(15, 23, 42, 0.8);
+
+    color: white;
+
+    font-size: 16px;
+}
+
+
+#player-name-input:focus {
+
+    border-color: #60a5fa;
+
+    box-shadow:
+        0 0 15px
+        rgba(59, 130, 246, 0.35);
+}
+
+
+.error-message {
+
+    min-height: 20px;
+
+    margin-top: 7px;
+
+    font-size: 12px;
+
+    color: #f87171;
+
+    text-align: left;
+}
+
+
+/* =====================================
+   BUTTON
+===================================== */
+
+.primary-btn {
+
+    margin-top: 20px;
+
+    width: 100%;
+
+    padding: 14px 20px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #3b82f6,
+            #2563eb
+        );
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 0 20px
+        rgba(59, 130, 246, 0.45);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.primary-btn:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 0 30px
+        rgba(59, 130, 246, 0.7);
+}
+
+
+.primary-btn:active {
+
+    transform:
+        translateY(0);
+}
+
+
+/* =====================================
+   INSTRUCTIONS
+===================================== */
+
+.screen-title {
+
+    margin-bottom: 25px;
+
+    font-size: 28px;
+
+    font-weight: 800;
+
+    color: #bfdbfe;
+
+    letter-spacing: 2px;
+}
+
+
+.instruction-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 12px;
+
+    text-align: left;
+}
+
+
+.instruction-item {
+
+    display: flex;
+
+    gap: 12px;
+
+    padding: 14px;
+
+    border-radius: 10px;
+
+    background:
+        rgba(15, 23, 42, 0.65);
+
+    border:
+        1px solid
+        rgba(148, 163, 184, 0.1);
+}
+
+
+.instruction-icon {
+
+    font-size: 20px;
+}
+
+
+.instruction-item strong {
+
+    font-size: 11px;
+
+    letter-spacing: 1px;
+
+    color: #93c5fd;
+}
+
+
+.instruction-item p {
+
+    margin-top: 5px;
+
+    font-size: 12px;
+
+    line-height: 1.45;
+
+    color: #cbd5e1;
+}
+
+
+/* =====================================
+   GAME UI
+===================================== */
+
+#ui-layer {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 20;
+
+    pointer-events: none;
+}
+
+
+.panel {
+
+    position: absolute;
+
+    top: 16px;
+
+    padding: 12px 14px;
+
+    border-radius: 12px;
+
+    background:
+        rgba(3, 7, 18, 0.75);
+
+    border:
+        1px solid
+        rgba(59, 130, 246, 0.6);
+
+    box-shadow:
+        0 0 20px
+        rgba(59, 130, 246, 0.25);
+
+    backdrop-filter:
+        blur(5px);
+}
+
+
+.panel-title {
+
+    font-size: 11px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+
+    color: #93c5fd;
+
+    margin-bottom: 5px;
+}
+
+
+#score-panel {
+
+    left: 16px;
+
+    min-width: 120px;
+}
+
+
+#score-value {
+
+    font-size: 25px;
+
+    font-weight: 800;
+}
+
+
+#timer-panel {
+
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    min-width: 110px;
+
+    text-align: center;
+}
+
+
+#timer-value {
+
+    font-size: 25px;
+
+    font-weight: 900;
+
+    color: #bfdbfe;
+}
+
+
+#timer-panel.timer-warning {
+
+    border-color:
+        rgba(239, 68, 68, 0.9);
+
+    box-shadow:
+        0 0 25px
+        rgba(239, 68, 68, 0.6);
+
+    animation:
+        timerPulse 0.7s infinite alternate;
+}
+
+
+#timer-panel.timer-warning
+#timer-value {
+
+    color: #f87171;
+}
+
+
+@keyframes timerPulse {
+
+    from {
+        transform:
+            translateX(-50%)
+            scale(1);
+    }
+
+    to {
+        transform:
+            translateX(-50%)
+            scale(1.05);
+    }
+
+}
+
+
+#coach-panel {
+
+    right: 16px;
+
+    max-width: 280px;
+
+    font-size: 13px;
+
+    line-height: 1.4;
+}
+
+
+#center-message {
+
+    position: absolute;
+
+    left: 50%;
+
+    top: 22%;
+
+    transform:
+        translateX(-50%);
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    color: #93c5fd;
+
+    text-align: center;
+
+    text-shadow:
+        0 0 12px
+        rgba(59, 130, 246, 0.9);
+}
+
+
+/* =====================================
+   RESULT
+===================================== */
+
+.result-card {
+
+    animation:
+        resultAppear 0.6s ease;
+}
+
+
+@keyframes resultAppear {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            scale(0.92);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            scale(1);
+
+    }
+
+}
+
+
+.result-message {
+
+    font-size: 34px;
+
+    font-weight: 900;
+
+    letter-spacing: 3px;
+
+    color: #60a5fa;
+
+    text-shadow:
+        0 0 25px
+        rgba(59, 130, 246, 0.8);
+
+    margin-bottom: 30px;
+}
+
+
+.result-name {
+
+    font-size: 20px;
+
+    font-weight: 700;
+
+    color: #e0f2fe;
+
+    margin-bottom: 25px;
+}
+
+
+.result-score-label {
+
+    font-size: 11px;
+
+    letter-spacing: 2px;
+
+    color: #93c5fd;
+}
+
+
+.result-score {
+
+    margin-top: 5px;
+
+    font-size: 48px;
+
+    font-weight: 900;
+
+    color: white;
+
+    text-shadow:
+        0 0 20px
+        rgba(59, 130, 246, 0.7);
+}
+
+.best-score {
+    font-size: 28px;
+    color: #fcfdfc;
+    text-shadow: 0 0 14px rgba(250, 204, 21, 0.8);
+}
+
+.completion-status {
+
+    margin-top: 12px;
+
+    font-size: 12px;
+
+    letter-spacing: 1.5px;
+
+    color: #60a5fa;
+}
+
+
+.dare-message {
+
+    margin-top: 40px;
+
+    font-size: 16px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    color: #e1cbcb;
+}
+
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media (max-width: 600px) {
+
+    .welcome-card,
+    .instructions-card,
+    .result-card {
+
+        padding: 25px 20px;
+
+    }
+
+
+    .instruction-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    #coach-panel {
+
+        top: auto;
+
+        bottom: 15px;
+
+        right: 15px;
+
+        max-width: 230px;
+
+    }
+
+
+    #score-panel {
+
+        left: 10px;
+
+        top: 10px;
+
+    }
+
+
+    #timer-panel {
+
+        top: 10px;
+
+    }
+
+}
