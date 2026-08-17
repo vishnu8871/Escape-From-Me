@@ -10,6 +10,14 @@ The game is designed around an **AI and digital-data theme**, providing a simple
 
 ---
 
+## 🚀 Live Demo
+
+Play the game online:
+
+👉 **[Play AI Data Rush](https://vishnu8871.github.io/Escape-From-Me/)**
+
+---
+
 ## 🎯 Objective of the Game
 
 The main objective of AI Data Rush is to:
